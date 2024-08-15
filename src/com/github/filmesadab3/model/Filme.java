@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class Filme {
     private String titulo;
     private String sinopse;
+    private int ano;
     private int duracao; //duração em minutos;
     private int[] estrelas; //número de avaliações (em estrelas)
     ArrayList<Pessoa> atores;
     ArrayList<Pessoa> diretores;
 //    ArrayList<Personagem> personagens;
 
-    public Filme(String titulo, String sinopse, int duracao){
+    public Filme(String titulo, String sinopse, int ano, int duracao){
         if(titulo != null && !titulo.isBlank()){
             this.titulo = titulo;
         } else throw new IllegalArgumentException("O campo titulo é de preenchimento obrigatório.");
@@ -22,7 +23,14 @@ public class Filme {
 
         if(duracao > 0){
             this.duracao = duracao;
-        } else throw new IllegalArgumentException("O campo duracao não pode ser menor ou igual a zero.");
+        } else throw new IllegalArgumentException("O campo duração não pode ser menor ou igual a zero.");
+
+        if (ano > 0){
+            this.ano = ano;
+        }
+        else{
+            throw new IllegalArgumentException("O campo ano não pode ser menor ou igual a zero.");
+        }
 
         estrelas = new int[5];
         atores = new ArrayList<>();
@@ -71,6 +79,10 @@ public class Filme {
 
     public String getSinopse(){
         return sinopse;
+    }
+
+    public int getAno(){
+        return this.ano;
     }
 
     public int getDuracao(){
