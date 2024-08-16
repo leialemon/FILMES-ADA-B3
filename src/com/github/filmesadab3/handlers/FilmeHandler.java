@@ -47,7 +47,7 @@ public class FilmeHandler {
             Pessoa p = PessoaHandler.buscarPessoaExata(nomeDiretor);
             if(p != null){
                 f.adicionarDiretor(p);
-            } else System.err.println("A pessoa a ser adicionada na direção do filme não foi encontrada.");
+            } else System.err.println("A pessoa a ser adicionada na direção do filme não foi encontrada na base de dados.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }
 
@@ -57,7 +57,7 @@ public class FilmeHandler {
             Pessoa p = PessoaHandler.buscarPessoaExata(nomeAtor);
             if(p != null){
                 f.adicionarAtor(p);
-            } else System.err.println("A pessoa a ser adicionada como atora não foi encontrada.");
+            } else System.err.println("A pessoa a ser adicionada como ator não foi encontrada na base de dados.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }
 
