@@ -1,5 +1,7 @@
 package src.com.github.filmesadab3.model;
 import src.com.github.filmesadab3.handlers.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -65,9 +67,50 @@ public class Menu {
         PessoaHandler.adicionarPessoa(pessoa);
     }
 
-    public static void menuPesquisaFilme(){}
+    public static void menuPesquisaFilme(){
+        String tituloFilme;
+        System.out.println("Digite o nome do filme que você deseja procurar:");
+        tituloFilme = entrada.nextLine();
+        ArrayList<Filme> resultados = FilmeHandler.buscarFilme(tituloFilme);
+        System.out.println("Resultados:");
+        int i = 1;
+        for (Filme filme : resultados){
+            System.out.println(i + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
+            i++;
+        }
+        System.out.println();
+        System.out.println("Para ver mais detalhes sobre um filme, digite o número correspondente,"+
+                "ou digite '0' para voltar ao menu principal.");
+
+        int filmeEscolhido = (EntradaHandler.loopValidaOpcoes(0, i, entrada)) - 1;
+        if (filmeEscolhido != -1){
+            menuExibirInfosPesquisa(resultados.get(filmeEscolhido));
+        }
+    }
 
     public static void menuExibirInfos(){}
+
+    public static void menuExibirInfosPesquisa(Filme filme){
+        System.out.println("Página do filme");
+        System.out.println("Título: "+filme.getTitulo());
+        System.out.println("Ano de lançamento: "+filme.getAno());
+        System.out.print("   Duração: "+filme.getDuracao()+" minutos");
+        System.out.println("Nota: "+filme.getEstrelasString()+" estrelas");
+        System.out.println("Sinopse: "+filme.getSinopse());
+        System.out.println("Direção:");
+        ArrayList<Pessoa> direcao = filme.obterDiretores();
+        for (Pessoa diretor : direcao){
+            System.out.printf(" %s;",diretor.getNome());
+        }
+        System.out.println("Elenco:");
+        ArrayList<Pessoa> elenco = filme.obterAtores();
+        for (Pessoa ator : elenco){
+            System.out.println(ator.getNome());
+        }
+        System.out.println();
+        System.out.println("Digite qualquer tecla para voltar ao menu principal:");
+        entrada.next();
+    }
 
     public static void adicionarDiretor(){
         String tituloFilme, nome;
