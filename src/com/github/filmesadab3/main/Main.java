@@ -25,7 +25,8 @@ public class Main{
             System.out.println("""
                                 Digite o número da ação deseijada:
                                 1-Cadastra Pessoa
-                                2-Cadastra """);
+                                2-Cadastra Filme
+                                -1- sai """);
 
             System.out.println("Digite '-1' para sair:");
             sair = entrada.nextInt();
