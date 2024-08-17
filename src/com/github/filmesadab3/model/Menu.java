@@ -23,7 +23,7 @@ public class Menu {
         ano = EntradaHandler.loopValidaAno("ano de lançamento", entrada);
         duracao = EntradaHandler.loopValidaDuracao("duração", entrada);
 
-        Filme filme = new Filme(titulo, sinopse, duracao, ano);
+        Filme filme = new Filme(titulo, sinopse, ano, duracao);
         FilmeHandler.adicionarFilme(filme);
         do {
         System.out.println("O que deseja fazer agora?");
@@ -72,7 +72,8 @@ public class Menu {
         } else {
             int i = 1;
             for (Filme filme : resultados){
-                System.out.println(i + " - " + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
+                String notaFilme = (filme.getEstrelasString().equals("Sem avaliações") ? filme.getEstrelasString() : filme.getEstrelasString() + " estrelas");
+                System.out.println(i + " - " + filme.getTitulo() + "\nNota: " + notaFilme);
                 i++;
             }
             System.out.println("Para ver mais detalhes sobre um filme, digite o número correspondente,"+
@@ -111,7 +112,8 @@ public class Menu {
         System.out.println("Título: "+filme.getTitulo());
         System.out.println("Ano de lançamento: "+filme.getAno());
         System.out.print("Duração: "+filme.getDuracao()+" minutos");
-        System.out.println("   Nota: "+filme.getEstrelasString()+" estrelas");
+        String notaFilme = (filme.getEstrelasString().equals("Sem avaliações") ? filme.getEstrelasString() : filme.getEstrelasString() + " estrelas");
+        System.out.println("   Nota: " + notaFilme);
         System.out.println("Sinopse: "+filme.getSinopse());
         System.out.println("Direção:");
         ArrayList<Pessoa> direcao = filme.obterDiretores();

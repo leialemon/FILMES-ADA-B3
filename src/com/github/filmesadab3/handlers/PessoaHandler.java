@@ -11,6 +11,7 @@ public class PessoaHandler {
     public static void adicionarPessoa(Pessoa pessoa){
         if(pessoa != null){
             dbPessoas.adicionarPessoa(pessoa);
+            System.out.println("A pessoa \"" + pessoa.getNome() + "\" foi adicionada ao banco de dados.");
         } else throw new IllegalArgumentException("Apenas pessoas válidas podem ser adicionadas ao banco de dados.");
     }
 
