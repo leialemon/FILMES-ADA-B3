@@ -1,5 +1,6 @@
 package src.com.github.filmesadab3.model;
 import src.com.github.filmesadab3.handlers.*;
+import src.com.github.filmesadab3.main.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,13 +8,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
-    static Scanner entrada = new Scanner(System.in);
+    static Scanner entrada = Main.entrada;
     private Menu(){}
 
     public static void menuCadastroFilme(){
         System.out.println("Cadastro de filme");
         String titulo, sinopse;
-        int ano, duracao;
+        int ano, duracao, proximo;
 
         titulo = EntradaHandler.loopValidaString("título","do filme: ", entrada);
         sinopse = EntradaHandler.loopValidaString("sinopse","do filme: ", entrada);
@@ -22,12 +23,12 @@ public class Menu {
 
         Filme filme = new Filme(titulo, sinopse, duracao, ano);
         FilmeHandler.adicionarFilme(filme);
-
+        do {
         System.out.println("O que deseja fazer agora?");
         System.out.println("1. Adicionar atores ao filme; \n2. Adicionar diretores ao filme; " +
-                "\n3. Adicionar personagens ao filme; \n4. Adicionar avaliações ao filme;" +
-                "\n5. Adicionar novo filme; \n6. Voltar ao menu principal;");
-        int proximo = EntradaHandler.loopValidaOpcoes(1, 6, entrada);
+                "\n3. Adicionar avaliações ao filme;" +
+                "\n4. Adicionar novo filme; \n5. Voltar ao menu principal;");
+        proximo = EntradaHandler.loopValidaOpcoes(1, 5, entrada);
 
         switch (proximo){
             case 1:
@@ -37,17 +38,12 @@ public class Menu {
                 adicionarDiretorAoFilme(filme);
                 break;
             case 3:
-                adicionarPersonagemAoFilme(filme);
-                break;
-            case 4:
                 avaliarFilmeAoFilme(filme);
                 break;
-            case 5:
+            case 4:
                 menuCadastroFilme();
                 break;
-            case 6:
-                return;
-        }
+        }}while (proximo != 5);
     }
 
     public static void menuCadastroPessoa(){
@@ -69,7 +65,7 @@ public class Menu {
         System.out.println("Resultados:");
         int i = 1;
         for (Filme filme : resultados){
-            System.out.println(i + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
+            System.out.println(i + " - " + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
             i++;
         }
         System.out.println();
@@ -82,14 +78,14 @@ public class Menu {
         }
     }
 
-    public static void menuExibirInfos(){}
+    public static void menuExibirInfos(){} // TODO busca pelo título exato;
 
     public static void menuExibirInfosPesquisa(Filme filme){
         System.out.println("Página do filme");
         System.out.println("Título: "+filme.getTitulo());
         System.out.println("Ano de lançamento: "+filme.getAno());
-        System.out.print("   Duração: "+filme.getDuracao()+" minutos");
-        System.out.println("Nota: "+filme.getEstrelasString()+" estrelas");
+        System.out.print("Duração: "+filme.getDuracao()+" minutos");
+        System.out.println("   Nota: "+filme.getEstrelasString()+" estrelas");
         System.out.println("Sinopse: "+filme.getSinopse());
         System.out.println("Direção:");
         ArrayList<Pessoa> direcao = filme.obterDiretores();
@@ -140,10 +136,6 @@ public class Menu {
 
         FilmeHandler.adicionarAtor(filme.getTitulo(), nomeAtor, nomePersonagem);
     }
-
-    public static void adicionarPersonagem(){}
-
-    public static void adicionarPersonagemAoFilme(Filme filme){}
 
     public static void avaliarFilme(){
         String tituloFilme;

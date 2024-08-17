@@ -1,5 +1,6 @@
 package src.com.github.filmesadab3.handlers;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EntradaHandler {
@@ -46,7 +47,7 @@ public class EntradaHandler {
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, digite apenas números.");
             }
-        } while (retorno == 0 || erro);
+        } while (retorno <= 0 || erro);
         return retorno;
     }
 
@@ -75,15 +76,19 @@ public class EntradaHandler {
         do {
         try {
             retorno = entrada.nextInt();
-            if (entrada.nextInt() >= primeira && entrada.nextInt() <= ultima){
+            if (retorno >= primeira && retorno <= ultima){
                 erro = false;
             } else {
                 System.out.println("Opção inválida! Digite um número de " + primeira+ " a " +ultima);
             }
         }
-        catch (IllegalArgumentException e){
-            System.out.println("Por favor, digite apenas números. Tente novamente:");
-        }} while(erro);
+        catch (InputMismatchException e){
+            System.err.println("Por favor, digite apenas números. Tente novamente:");
+        } catch (Exception e){
+            System.err.println("ERRO! Por favor, tente novamente:");
+        }
+        entrada.nextLine();
+        } while(erro);
         return retorno;
     }
 
