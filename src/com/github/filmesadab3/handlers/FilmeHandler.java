@@ -13,6 +13,7 @@ public class FilmeHandler {
     public static void adicionarFilme(Filme filme){
         if(filme != null) {
             dbFilmes.adicionarFilme(filme);
+            System.out.println("O filme \"" + filme.getTitulo() + "\" foi adicionado ao banco de dados.");
         } else throw new IllegalArgumentException("Apenas filmes válidos podem ser adicionados ao banco de dados.");
     }
 
@@ -47,6 +48,7 @@ public class FilmeHandler {
             Pessoa p = PessoaHandler.buscarPessoaExata(nomeDiretor);
             if(p != null){
                 f.adicionarDiretor(p);
+                System.out.println("Diretor com nome \"" + nomeDiretor + "\" adicionado ao filme \"" + tituloFilme + "\".");
             } else System.err.println("A pessoa a ser adicionada na direção do filme não foi encontrada na base de dados.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }
@@ -58,6 +60,8 @@ public class FilmeHandler {
             if(p != null){
                 if(nomePersonagem != null && !nomePersonagem.isBlank()) {
                     f.adicionarAtor(p, nomePersonagem);
+                    System.out.println("Ator com nome \"" + nomeAtor + "\" adicionado ao filme \"" + tituloFilme + "\"," +
+                            " interpretando o personagem \"" + nomePersonagem + "\".");
                 } else System.err.println("Um ator a ser adicionado deve interpretar um personagem válido.");
             } else System.err.println("A pessoa a ser adicionada como ator não foi encontrada na base de dados.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
@@ -73,6 +77,7 @@ public class FilmeHandler {
         if(f != null){
             if(avaliacao >= 1 && avaliacao <= 5){
                 f.avaliar(avaliacao);
+                System.out.println("O filme \"" + tituloFilme + "\" foi avaliado com " + avaliacao + " estrela(s).");
             } else System.err.println("A avaliação do filme deve ser um valor entre 1 e 5 estrelas.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }
