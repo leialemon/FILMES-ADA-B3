@@ -18,8 +18,8 @@ public class Menu {
 
         titulo = EntradaHandler.loopValidaString("título","do filme: ", entrada);
         sinopse = EntradaHandler.loopValidaString("sinopse","do filme: ", entrada);
-        ano = EntradaHandler.loopValidaInt("ano de lançamento","do filme: ", entrada);
-        duracao = EntradaHandler.loopValidaInt("duração", "do filme: ", entrada);
+        ano = EntradaHandler.loopValidaAno("ano de lançamento", entrada);
+        duracao = EntradaHandler.loopValidaDuracao("duração", entrada);
 
         Filme filme = new Filme(titulo, sinopse, duracao, ano);
         FilmeHandler.adicionarFilme(filme);
@@ -63,19 +63,25 @@ public class Menu {
         tituloFilme = entrada.nextLine();
         ArrayList<Filme> resultados = FilmeHandler.buscarFilme(tituloFilme);
         System.out.println("Resultados:");
-        int i = 1;
-        for (Filme filme : resultados){
-            System.out.println(i + " - " + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
-            i++;
-        }
-        System.out.println();
-        System.out.println("Para ver mais detalhes sobre um filme, digite o número correspondente,"+
-                "ou digite '0' para voltar ao menu principal.");
+        if (resultados.isEmpty()){
+            System.out.println("Nenhum filme encontrado.");
+        } else {
+            int i = 1;
+            for (Filme filme : resultados){
+                System.out.println(i + " - " + filme.getTitulo() + "\nNota: " + filme.getEstrelasString() + " estrelas");
+                i++;
+            }
+            System.out.println("Para ver mais detalhes sobre um filme, digite o número correspondente,"+
+                    "ou digite '0' para voltar ao menu principal.");
 
-        int filmeEscolhido = (EntradaHandler.loopValidaOpcoes(0, i, entrada)) - 1;
-        if (filmeEscolhido != -1){
-            menuExibirInfosPesquisa(resultados.get(filmeEscolhido));
+            int filmeEscolhido = (EntradaHandler.loopValidaOpcoes(0, i, entrada)) - 1;
+            if (filmeEscolhido != -1){
+                menuExibirInfosPesquisa(resultados.get(filmeEscolhido));
+            }
         }
+        System.out.println("Deseja realizar outra pesquisa? 1.Sim/2.Não");
+        int resposta = EntradaHandler.loopValidaOpcoes(1,2,entrada);
+        if (resposta == 1){menuPesquisaFilme();}
     }
 
     public static void menuExibirInfos(){} // TODO busca pelo título exato;
