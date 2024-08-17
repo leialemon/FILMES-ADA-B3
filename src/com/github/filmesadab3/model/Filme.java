@@ -62,17 +62,19 @@ public class Filme {
 
     /*Retorna a avaliação média do filme (em estrelas).*/
     public float getEstrelas(){
-        float mediaPonderada;
+        float dividendo = (float) (estrelas[0] + estrelas[1] * 2 + estrelas[2] * 3 + estrelas[3] * 4 + estrelas[4] * 5);
+        float divisor = (estrelas[0] + estrelas[1] + estrelas[2] + estrelas[3] + estrelas[4]);
 
-        mediaPonderada = (float) (estrelas[0] + estrelas[1] * 2 + estrelas[2] * 3 + estrelas[3] * 4 + estrelas[4] * 5) /(estrelas[0] + estrelas[1] + estrelas[2] + estrelas[3] + estrelas[4]);
-
-        return mediaPonderada;
+        if(divisor <= 0) return 0;
+        return dividendo /divisor;
     }
 
     /*Retorna a avaliação média do filme (em estrelas) como uma String, exibindo apenas dois dígitos após a vírgula.*/
     public String getEstrelasString(){
         float media = getEstrelas();
-        return String.format("%.2f", media);
+
+        if(media != 0) return String.format("%.2f", media);
+        else return "Sem avaliações";
     }
 
     public String getTitulo(){
