@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
-    static Scanner entrada = Main.entrada;
+    //Classe utilitária que gerencia os métodos chamados pelos menus;
+    static Scanner entrada = Main.entrada; //objeto Scanner importado da classe Main;
     private Menu(){}
 
-    public static void menuCadastroFilme(){
+    // Adiciona um filme na base de dados através dos dados fornecidos pelo usuário e por intermédio dos métodos handlers;
+    public static void menuCadastroFilme(){ //MP
         System.out.println("Cadastro de filme");
         String titulo, sinopse;
         int ano, duracao, proximo;
@@ -46,7 +48,8 @@ public class Menu {
         }}while (proximo != 5);
     }
 
-    public static void menuCadastroPessoa(){
+    // Adiciona uma pessoa na base de dados através dos dados fornecidos pelo usuário e por intermédio dos métodos handlers;
+    public static void menuCadastroPessoa(){ //MP
         System.out.println("Cadastro de Pessoas");
         String nome, biografia;
 
@@ -57,10 +60,11 @@ public class Menu {
         PessoaHandler.adicionarPessoa(pessoa);
     }
 
-    public static void menuPesquisaFilme(){
-        String tituloFilme;
-        System.out.println("Digite o nome do filme que você deseja procurar:");
-        tituloFilme = entrada.nextLine();
+    // Faz a busca de filmes por título e retorna todos os resultados com a expressão pesquisada;
+    public static void menuPesquisaFilme(){ //MP
+        System.out.println("Busca de filmes");
+        System.out.println("Digite o nome do filme que você deseja procurar");
+        String tituloFilme = EntradaHandler.loopValidaString("título","do filme",entrada);
         ArrayList<Filme> resultados = FilmeHandler.buscarFilme(tituloFilme);
         System.out.println("Resultados:");
         if (resultados.isEmpty()){
@@ -84,8 +88,24 @@ public class Menu {
         if (resposta == 1){menuPesquisaFilme();}
     }
 
-    public static void menuExibirInfos(){} // TODO busca pelo título exato;
+    // Realiza a pesquisa conforme o título exato informado pelo usuário e retorna todas as informações sobre aquele filme;
+    public static void menuPesquisaExata(){ //MP
+        System.out.println("Digite o título exato do filme que deseja pesquisar");
+        String tituloExato = EntradaHandler.loopValidaString("título exato","do filme",entrada);
+        var filme = FilmeHandler.buscarFilmeExato(tituloExato);
+        if (filme == null){
+            System.out.println("Desculpe, não encontramos filmes com esse título em nossa base de dados.");
+            System.out.println("Deseja tentar novamente? 1.Sim/2.Não");
+            int resposta = EntradaHandler.loopValidaOpcoes(1,2,entrada);
+            if (resposta == 1){
+                menuPesquisaExata();
+            }
+        } else {
+            menuExibirInfosPesquisa(filme);
+        }
+    }
 
+    // Método que retorna as informações sobre um filme, chamado pelos métodos menuPesquisaFilme e menuPesquisaExata;
     public static void menuExibirInfosPesquisa(Filme filme){
         System.out.println("Página do filme");
         System.out.println("Título: "+filme.getTitulo());
@@ -108,7 +128,8 @@ public class Menu {
         entrada.next();
     }
 
-    public static void adicionarDiretor(){
+    //Métodos que adicionam atributos a um filme;
+    public static void adicionarDiretor(){ //MP
         String tituloFilme, nome;
 
         nome = EntradaHandler.loopValidaString("nome", "do diretor: ", entrada);
@@ -117,14 +138,7 @@ public class Menu {
         FilmeHandler.adicionarDiretor(tituloFilme, nome);
     }
 
-    public static void adicionarDiretorAoFilme(Filme filme){
-        String nome;
-
-        nome = EntradaHandler.loopValidaString("nome", "do diretor: ", entrada);
-        FilmeHandler.adicionarDiretor(filme.getTitulo(), nome);
-    }
-
-    public static void adicionarAtor(){
+    public static void adicionarAtor(){ //MP
         String tituloFilme, nomeAtor, nomePersonagem;
 
         nomeAtor = EntradaHandler.loopValidaString("nome", "do ator: ", entrada);
@@ -134,16 +148,7 @@ public class Menu {
         FilmeHandler.adicionarAtor(tituloFilme, nomeAtor, nomePersonagem);
     }
 
-    public static void adicionarAtorAoFilme(Filme filme){
-        String nomeAtor, nomePersonagem;
-
-        nomeAtor = EntradaHandler.loopValidaString("nome", "do ator: ", entrada);
-        nomePersonagem = EntradaHandler.loopValidaString("nome do personagem", "a ser interpretado pelo ator: ", entrada);
-
-        FilmeHandler.adicionarAtor(filme.getTitulo(), nomeAtor, nomePersonagem);
-    }
-
-    public static void avaliarFilme(){
+    public static void avaliarFilme(){ //MP
         String tituloFilme;
         int avaliacao;
 
@@ -151,6 +156,24 @@ public class Menu {
         avaliacao = EntradaHandler.loopValidaNota("nota", "de 1 a 5 estrelas para o filme: ", entrada);
 
         FilmeHandler.adicionarAvaliacao(tituloFilme, avaliacao);
+    }
+
+    // Métodos iguais aos acima, mas chamados pelo menu de adicionar filmes;
+
+    public static void adicionarDiretorAoFilme(Filme filme){
+        String nome;
+
+        nome = EntradaHandler.loopValidaString("nome", "do diretor: ", entrada);
+        FilmeHandler.adicionarDiretor(filme.getTitulo(), nome);
+    }
+
+    public static void adicionarAtorAoFilme(Filme filme){
+        String nomeAtor, nomePersonagem;
+
+        nomeAtor = EntradaHandler.loopValidaString("nome", "do ator: ", entrada);
+        nomePersonagem = EntradaHandler.loopValidaString("nome do personagem", "a ser interpretado pelo ator: ", entrada);
+
+        FilmeHandler.adicionarAtor(filme.getTitulo(), nomeAtor, nomePersonagem);
     }
 
     public static void avaliarFilmeAoFilme(Filme filme){

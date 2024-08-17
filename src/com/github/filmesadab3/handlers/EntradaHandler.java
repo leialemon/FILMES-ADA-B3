@@ -4,13 +4,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EntradaHandler {
+    // Classe utilitária que contém os métodos de validação dos dados de entrada;
     private EntradaHandler(){}
+
+    // Método para checar se a entrada é uma String vazia. Chamado pelos loops;
     public static boolean checkVazia(String string){
         boolean check;
         check = string == null || (string.isBlank());
         return check;
     }
 
+    // Método para checar se a entrada é um número negativo. Chamado pelos loops;
     public static boolean checkNegativo(int numero, String nome){
         boolean check;
         if (numero < 0){
@@ -22,6 +26,9 @@ public class EntradaHandler {
         return check;
     }
 
+    // Método que valida entradas e retorna valores válidos de strings. Executa em loop até o usuário fornecer uma entrada válida.
+    // Os parâmetros são: nome e objeto são strings utilizadas somente para personalizar os outputs do método, de modo que o usuário saiba
+    // qual valor está sendo atribuído; entrada recebe um objeto Scanner criado na classe Main;
     public static String loopValidaString(String nome, String objeto, Scanner entrada){
         String retorno;
         boolean erro;
@@ -35,7 +42,8 @@ public class EntradaHandler {
         } while (erro);
         return retorno;
     }
-
+    // Método que valida entradas e retorna um número inteiro válido para ser atribuído ao atributo Filme.ano;
+    // Os parâmetros são: nome, uma string contendo a expressão "ano de lançamento"; e entrada, que recebe um objeto Scanner;
     public static int loopValidaAno(String nome, Scanner entrada){
         int retorno = 0;
         boolean erro = true;
@@ -57,7 +65,8 @@ public class EntradaHandler {
         } while (retorno <= 0 || erro);
         return retorno;
     }
-
+    // Método que valida entradas e retorna um número inteiro válido para ser atribuído ao atributo Filme.duracao;
+    // Os parâmetros são: nome, uma string contendo a expressão "duração"; e entrada, que recebe um objeto Scanner;
     public static int loopValidaDuracao(String nome,  Scanner entrada){
         int retorno = 0;
         boolean erro = true;
@@ -73,6 +82,8 @@ public class EntradaHandler {
         return retorno;
     }
 
+    // Método que valida entradas e retorna uma nota de 1 a 5 para computar na avaliação do filme;
+    // Os parâmetros seguem o mesmo padrão dos demais loops de validação;
     public static int loopValidaNota(String nome, String objeto, Scanner entrada){
         int retorno = 0;
         boolean erro = true;
@@ -92,6 +103,8 @@ public class EntradaHandler {
         return retorno;
     }
 
+    // Método que valida entradas e retorna um inteiro válido para representar a escolha do usuário diante dos menus de opções;
+    // Os parâmetros primeira e última representam as opções do menu que chama o método;
     public static int loopValidaOpcoes(int primeira, int ultima, Scanner entrada){
         int retorno = 0;
         boolean erro = true;
