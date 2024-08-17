@@ -21,7 +21,7 @@ public class Menu {
         ano = EntradaHandler.loopValidaAno("ano de lançamento", entrada);
         duracao = EntradaHandler.loopValidaDuracao("duração", entrada);
 
-        Filme filme = new Filme(titulo, sinopse, duracao, ano);
+        Filme filme = new Filme(titulo, sinopse, ano, duracao);
         FilmeHandler.adicionarFilme(filme);
         do {
         System.out.println("O que deseja fazer agora?");
