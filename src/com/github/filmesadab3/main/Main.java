@@ -22,6 +22,10 @@ public class Main{
 
 
         do{
+            System.out.println("""
+                                Digite o número da ação deseijada:
+                                1-Cadastra Pessoa
+                                2-Cadastra """);
 
             System.out.println("Digite '-1' para sair:");
             sair = entrada.nextInt();
@@ -29,8 +33,6 @@ public class Main{
         }while (sair != -1);
 
         System.out.println("Obrigado, volte sempre\n");
-        System.out.print("Todos os Direitos reservado₢" +
-                            "Arthur Francisco," +
-                            "Fernando Grossi Junior,");
+        System.out.print("Todos os Direitos reservado₢");
     }
 }
