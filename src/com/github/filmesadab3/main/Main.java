@@ -22,12 +22,13 @@ public class Main{
 
 
         do{
+            //ainda não está concluido
             System.out.println("""
                                 Digite o número da ação deseijada:
                                 1-Cadastra Pessoa
                                 2-Cadastra Filme
-                                -1- sai """);
-
+                                -1- sair""");
+            
             System.out.println("Digite '-1' para sair:");
             sair = entrada.nextInt();
 
