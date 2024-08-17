@@ -1,19 +1,38 @@
-package src.com.github.filmesadab3.main;
-import src.com.github.filmesadab3.handlers.*;
-import src.com.github.filmesadab3.model.*;
+package com.github.filmesadab3.main;
+
+import com.github.filmesadab3.model.*;
 import java.util.Scanner;
 
 public class Main{
-    Scanner entrada = new Scanner(System.in);
-    public static void main(String[] args) {
-// Mensagem de boas vindas;
-// Mensagem explicando o funcionamento do programa;
-//
-//        do{}         loop menu principal
-//        while();
-//
-// Mensagem de agradecimento por usar o programa;
-// Nome dos alunos responsáveis pelo projeto.
 
+    public static void main(String[] args) {
+        int sair;
+
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("""
+                    \n
+                    ########################   |@@|
+                    Bem vindo ao Filmes-ADA!  /|  |\\
+                    ########################    ||""");
+        System.out.println("""
+                    \n
+                    obs: é necessario ter uma pessoa cadatrada
+                    para cadastra um diretor ou autor""");
+
+
+        do{
+            System.out.println("""
+                                Digite o número da ação deseijada:
+                                1-Cadastra Pessoa
+                                2-Cadastra """);
+
+            System.out.println("Digite '-1' para sair:");
+            sair = entrada.nextInt();
+
+        }while (sair != -1);
+
+        System.out.println("Obrigado, volte sempre\n");
+        System.out.print("Todos os Direitos reservado₢");
     }
 }
