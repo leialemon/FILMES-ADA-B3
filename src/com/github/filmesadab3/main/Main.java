@@ -1,6 +1,5 @@
-package com.github.filmesadab3.main;
+package src.com.github.filmesadab3.main;
 
-import com.github.filmesadab3.model.*;
 import java.util.Scanner;
 
 public class Main{
