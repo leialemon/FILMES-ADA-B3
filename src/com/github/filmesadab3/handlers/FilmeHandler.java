@@ -51,12 +51,14 @@ public class FilmeHandler {
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }
 
-    public static void adicionarAtor(String tituloFilme, String nomeAtor){
+    public static void adicionarAtor(String tituloFilme, String nomeAtor, String nomePersonagem){
         Filme f = buscarFilmeExato(tituloFilme);
         if(f != null){
             Pessoa p = PessoaHandler.buscarPessoaExata(nomeAtor);
             if(p != null){
-                f.adicionarAtor(p);
+                if(nomePersonagem != null && !nomePersonagem.isBlank()) {
+                    f.adicionarAtor(p, nomePersonagem);
+                } else System.err.println("Um ator a ser adicionado deve interpretar um personagem válido.");
             } else System.err.println("A pessoa a ser adicionada como ator não foi encontrada na base de dados.");
         } else System.err.println("O filme não foi encontrado no banco de dados.");
     }

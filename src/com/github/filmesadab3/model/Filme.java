@@ -1,6 +1,7 @@
 package src.com.github.filmesadab3.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Filme {
     private String titulo;
@@ -10,7 +11,7 @@ public class Filme {
     private int[] estrelas; //número de avaliações (em estrelas)
     ArrayList<Pessoa> atores;
     ArrayList<Pessoa> diretores;
-//    ArrayList<Personagem> personagens;
+    HashMap<String, String> personagens; //[chave: nome do ator] -> [valor: nome do personagem]
 
     public Filme(String titulo, String sinopse, int ano, int duracao){
         if(titulo != null && !titulo.isBlank()){
@@ -35,21 +36,22 @@ public class Filme {
         estrelas = new int[5];
         atores = new ArrayList<>();
         diretores = new ArrayList<>();
+        personagens = new HashMap<>();
     }
 
-    public void adicionarAtor(Pessoa ator){
-        if(ator != null) atores.add(ator);
-        else throw new IllegalArgumentException("O filme não pode receber um ator nulo.");
+    public void adicionarAtor(Pessoa ator, String nomePersonagem){
+        if(ator != null){
+            if(nomePersonagem != null && !nomePersonagem.isBlank()){
+                atores.add(ator);
+                personagens.put(ator.getNome(), nomePersonagem);
+            } else throw new IllegalArgumentException("Um ator a ser adicionado deve interpretar um personagem válido.");
+        } else throw new IllegalArgumentException("O filme não pode receber um ator nulo.");
     }
 
     public void adicionarDiretor(Pessoa diretor){
         if(diretor != null) diretores.add(diretor);
         else throw new IllegalArgumentException("O filme não pode receber um diretor nulo.");
     }
-
-//    public void adicionarPersonagem(Personagem personagem){
-//        personagens.add(personagem);
-//    }
 
     /*Adiciona uma avaliação em estrelas para o filme, sendo entre 1 e 5 estrelas.*/
     public void avaliar(int nota){
@@ -96,6 +98,8 @@ public class Filme {
     public ArrayList<Pessoa> obterDiretores(){
         return diretores;
     }
+
+    public HashMap<String, String> obterPersonagens(){ return personagens; }
 }
 
 

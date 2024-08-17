@@ -2,6 +2,8 @@ package src.com.github.filmesadab3.model;
 import src.com.github.filmesadab3.handlers.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -12,16 +14,11 @@ public class Menu {
         System.out.println("Cadastro de filme");
         String titulo, sinopse;
         int ano, duracao;
-        String tituloString = "título";
-        String sinopseString = "sinopse";
-        String anoString = "ano de lançamento";
-        String duracaoString = "duração";
-        String objetoFilme = "do filme";
 
-        titulo = EntradaHandler.loopValidaString(tituloString,objetoFilme, entrada);
-        sinopse = EntradaHandler.loopValidaString(sinopseString,objetoFilme, entrada);
-        ano = EntradaHandler.loopValidaInt(anoString,objetoFilme, entrada);
-        duracao = EntradaHandler.loopValidaInt(duracaoString, objetoFilme, entrada);
+        titulo = EntradaHandler.loopValidaString("título","do filme: ", entrada);
+        sinopse = EntradaHandler.loopValidaString("sinopse","do filme: ", entrada);
+        ano = EntradaHandler.loopValidaInt("ano de lançamento","do filme: ", entrada);
+        duracao = EntradaHandler.loopValidaInt("duração", "do filme: ", entrada);
 
         Filme filme = new Filme(titulo, sinopse, duracao, ano);
         FilmeHandler.adicionarFilme(filme);
@@ -56,12 +53,9 @@ public class Menu {
     public static void menuCadastroPessoa(){
         System.out.println("Cadastro de Pessoas");
         String nome, biografia;
-        String nomeString = "nome";
-        String biografiaString = "biografia";
-        String pessoaObjeto = "da pessoa";
 
-        nome = EntradaHandler.loopValidaString(nomeString, pessoaObjeto, entrada);
-        biografia = EntradaHandler.loopValidaString(biografiaString, pessoaObjeto, entrada);
+        nome = EntradaHandler.loopValidaString("nome", "da pessoa: ", entrada);
+        biografia = EntradaHandler.loopValidaString("biografia", "da pessoa: ", entrada);
 
         Pessoa pessoa = new Pessoa(nome, biografia);
         PessoaHandler.adicionarPessoa(pessoa);
@@ -103,57 +97,48 @@ public class Menu {
             System.out.printf(" %s;",diretor.getNome());
         }
         System.out.println("Elenco:");
-        ArrayList<Pessoa> elenco = filme.obterAtores();
-        for (Pessoa ator : elenco){
-            System.out.println(ator.getNome());
+        HashMap<String, String> elenco = filme.obterPersonagens();
+        for (Map.Entry<String, String> personagem: elenco.entrySet()){ // key - nome do ator; value - nome do personagem
+            System.out.println(personagem.getValue() + " - " + personagem.getKey());
         }
         System.out.println();
-        System.out.println("Digite qualquer tecla para voltar ao menu principal:");
+        System.out.println("Digite qualquer tecla para voltar ao menu principal...");
         entrada.next();
     }
 
     public static void adicionarDiretor(){
         String tituloFilme, nome;
-        String tituloString = "título";
-        String nomeString = "nome";
-        String diretorObjeto = "do diretor";
-        String objetoFilme = "do filme";
 
-        nome = EntradaHandler.loopValidaString(nomeString, diretorObjeto, entrada);
-        tituloFilme = EntradaHandler.loopValidaString(tituloString, objetoFilme, entrada);
+        nome = EntradaHandler.loopValidaString("nome", "do diretor: ", entrada);
+        tituloFilme = EntradaHandler.loopValidaString("título", "do filme: ", entrada);
 
         FilmeHandler.adicionarDiretor(tituloFilme, nome);
     }
 
     public static void adicionarDiretorAoFilme(Filme filme){
         String nome;
-        String nomeString = "nome";
-        String diretorObjeto = "do diretor";
 
-        nome = EntradaHandler.loopValidaString(nomeString, diretorObjeto, entrada);
+        nome = EntradaHandler.loopValidaString("nome", "do diretor: ", entrada);
         FilmeHandler.adicionarDiretor(filme.getTitulo(), nome);
     }
 
     public static void adicionarAtor(){
-        String tituloFilme, nome;
-        String tituloString = "título";
-        String nomeString = "nome";
-        String atorObjeto = "do ator";
-        String objetoFilme = "do filme";
+        String tituloFilme, nomeAtor, nomePersonagem;
 
-        nome = EntradaHandler.loopValidaString(nomeString, atorObjeto, entrada);
-        tituloFilme = EntradaHandler.loopValidaString(tituloString, objetoFilme, entrada);
+        nomeAtor = EntradaHandler.loopValidaString("nome", "do ator: ", entrada);
+        tituloFilme = EntradaHandler.loopValidaString("título", "do filme: ", entrada);
+        nomePersonagem = EntradaHandler.loopValidaString("nome do personagem", "a ser interpretado pelo ator: ", entrada);
 
-        FilmeHandler.adicionarAtor(tituloFilme, nome);
+        FilmeHandler.adicionarAtor(tituloFilme, nomeAtor, nomePersonagem);
     }
 
     public static void adicionarAtorAoFilme(Filme filme){
-        String nome;
-        String nomeString = "nome";
-        String atorObjeto = "do ator";
+        String nomeAtor, nomePersonagem;
 
-        nome = EntradaHandler.loopValidaString(nomeString, atorObjeto, entrada);
-        FilmeHandler.adicionarAtor(filme.getTitulo(), nome);
+        nomeAtor = EntradaHandler.loopValidaString("nome", "do ator: ", entrada);
+        nomePersonagem = EntradaHandler.loopValidaString("nome do personagem", "a ser interpretado pelo ator: ", entrada);
+
+        FilmeHandler.adicionarAtor(filme.getTitulo(), nomeAtor, nomePersonagem);
     }
 
     public static void adicionarPersonagem(){}
@@ -162,23 +147,17 @@ public class Menu {
 
     public static void avaliarFilme(){
         String tituloFilme;
-        String tituloString = "título";
-        String objetoFilme = "do filme";
         int avaliacao;
-        String avaliacaoString = "nota";
-        String objeto = "de 1 a 5 para o filme:";
 
-        tituloFilme = EntradaHandler.loopValidaString(tituloString, objetoFilme, entrada);
-        avaliacao = EntradaHandler.loopValidaNota(avaliacaoString, objeto, entrada);
+        tituloFilme = EntradaHandler.loopValidaString("título", "do filme: ", entrada);
+        avaliacao = EntradaHandler.loopValidaNota("nota", "de 1 a 5 estrelas para o filme: ", entrada);
 
         FilmeHandler.adicionarAvaliacao(tituloFilme, avaliacao);
     }
 
     public static void avaliarFilmeAoFilme(Filme filme){
         int avaliacao;
-        String avaliacaoString = "nota";
-        String objeto = "de 1 a 5 para o filme:";
-        avaliacao = EntradaHandler.loopValidaNota(avaliacaoString, objeto, entrada);
+        avaliacao = EntradaHandler.loopValidaNota("nota", "de 1 a 5 estrelas para o filme: ", entrada);
 
         FilmeHandler.adicionarAvaliacao(filme.getTitulo(), avaliacao);
     }
