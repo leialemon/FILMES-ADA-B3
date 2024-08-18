@@ -77,7 +77,7 @@ public class Menu {
                 i++;
             }
             System.out.println("Para ver mais detalhes sobre um filme, digite o número correspondente,"+
-                    "ou digite '0' para voltar ao menu principal.");
+                    "ou digite '0' para voltar ao menu anterior.");
 
             int filmeEscolhido = (EntradaHandler.loopValidaOpcoes(0, i, entrada)) - 1;
             if (filmeEscolhido != -1){
